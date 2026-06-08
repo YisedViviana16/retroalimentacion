@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema AlGa — Portal de entrada</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f4f3ff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.wrap{width:100%;max-width:680px}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;justify-content:center}
+.ntab{padding:6px 14px;border-radius:8px;border:0.5px solid #AFA9EC;font-size:12px;cursor:pointer;background:#fff;color:#534AB7;font-weight:500;transition:all .15s}
+.ntab.on{background:#534AB7;color:#fff;border-color:#534AB7}
+.screen{background:#EEEDFE;border-radius:16px;min-height:560px;display:flex;flex-direction:column;align-items:center;padding:1.5rem 1.5rem 1rem;position:relative;overflow:hidden}
+.topbar{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;z-index:2}
+.ibadge{font-size:10px;padding:3px 9px;border-radius:20px;background:#fff;color:#3C3489;border:0.5px solid #AFA9EC;font-weight:500}
+.main-row{display:flex;gap:1.2rem;align-items:flex-start;width:100%;z-index:2;flex:1}
+.right-col{flex:1;display:flex;flex-direction:column;gap:10px;padding-top:4px}
+.card{background:#fff;border-radius:12px;border:0.5px solid #AFA9EC;padding:.9rem 1rem}
+.ctitle{font-size:14px;font-weight:500;color:#3C3489;margin:0 0 5px}
+.cbody{font-size:12.5px;color:#534AB7;line-height:1.7;margin:0}
+.stars-row{display:flex;gap:8px;justify-content:center}
+.star-wrap{display:flex;flex-direction:column;align-items:center;gap:3px}
+.star{font-size:26px;color:#CCC;transition:all .4s}
+.star.lit{transform:scale(1.2)}
+.sname{font-size:10px;color:#888;text-align:center;max-width:66px;line-height:1.3}
+.sname.lit{color:#534AB7;font-weight:500}
+.btn-row{display:flex;gap:10px;justify-content:center;z-index:2;margin-top:6px;flex-wrap:wrap}
+.btn-p{background:#534AB7;color:#fff;border:none;border-radius:8px;padding:10px 26px;font-size:13px;font-weight:500;cursor:pointer}
+.btn-p:hover{background:#3C3489}
+.btn-o{background:transparent;color:#534AB7;border:1.5px solid #534AB7;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:500;cursor:pointer}
+.btn-o:hover{background:#EEEDFE}
+.guide-box{background:#E1F5EE;border-radius:10px;padding:8px 12px;border:0.5px solid #5DCAA5}
+.gdot{width:18px;height:18px;border-radius:50%;background:#1D9E75;color:#fff;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section{display:none;width:100%}
+.section.on{display:flex;flex-direction:column;gap:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="nav">
+  <button class="ntab on" onclick="showTab('portal')">Portal entrada</button>
+  <button class="ntab" onclick="showTab('feedback')">Mi feedback</button>
+</div>
+
+<div id="portal">
+<div class="screen">
+  <div style="position:absolute;width:110px;height:110px;border-radius:50%;background:#7F77DD;opacity:.07;top:-25px;left:-25px"></div>
+  <div style="position:absolute;width:70px;height:70px;border-radius:50%;background:#1D9E75;opacity:.07;bottom:50px;right:-15px"></div>
+
+  <div class="topbar">
+    <div style="display:flex;gap:6px">
+      <span class="ibadge">Alvernia</span>
+      <span class="ibadge">Gabriel Restrepo Moreno</span>
+    </div>
+    <span style="font-size:12px;font-weight:500;color:#534AB7;background:#fff;padding:4px 14px;border-radius:20px;border:0.5px solid #AFA9EC">Sistema AlGa</span>
+  </div>
+
+  <div class="main-row">
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <canvas id="algaC" width="155" height="170" style="width:155px;height:170px"></canvas>
+    </div>
+    <div class="right-col">
+      <div class="card">
+        <p class="ctitle">¡Bienvenido/a al Sistema AlGa!</p>
+        <p class="cbody" id="wText">Presiona <strong style="font-weight:500">Iniciar</strong> para que AlGa te explique cómo funciona este espacio de aprendizaje...</p>
+      </div>
+      <div style="background:#fff;border-radius:12px;border:1.5px dashed #AFA9EC;padding:.9rem 1rem">
+        <p style="font-size:10px;font-weight:500;color:#0F6E56;text-transform:uppercase;letter-spacing:.06em;margin:0 0 5px;display:flex;align-items:center;gap:5px">
+          <span style="width:7px;height:7px;border-radius:50%;background:#1D9E75;display:inline-block"></span>
+          Feedback de hoy
+        </p>
+        <p style="font-size:12.5px;color:#3C3489;line-height:1.7;margin:0;font-style:italic">Tu docente dejó una retroalimentación para ti. Cuando estés listo, presiona "Ver mi feedback" para comenzar los retos.</p>
+      </div>
+      <div class="guide-box">
+        <p style="font-size:10px;font-weight:500;color:#0F6E56;text-transform:uppercase;letter-spacing:.06em;margin:0 0 7px">¿Cómo funciona?</p>
+        <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px"><div class="gdot">1</div><p style="font-size:12px;color:#085041;margin:0;line-height:1.4">AlGa te explica el feedback de tu profe</p></div>
+        <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:5px"><div class="gdot">2</div><p style="font-size:12px;color:#085041;margin:0;line-height:1.4">Completas 5 retos para interpretarlo</p></div>
+        <div style="display:flex;gap:8px;align-items:flex-start"><div class="gdot">3</div><p style="font-size:12px;color:#085041;margin:0;line-height:1.4">Ganas tu identidad de Maestro/a AlGa</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="width:100%;z-index:2;margin-top:4px">
+    <p style="font-size:10px;font-weight:500;color:#534AB7;text-transform:uppercase;letter-spacing:.06em;text-align:center;margin:0 0 7px">Tu progreso de misiones</p>
+    <div class="stars-row">
+      <div class="star-wrap"><span class="star" id="s1">★</span><span class="sname" id="n1">Explorador/a</span></div>
+      <div class="star-wrap"><span class="star" id="s2">★</span><span class="sname" id="n2">Analista</span></div>
+      <div class="star-wrap"><span class="star" id="s3">★</span><span class="sname" id="n3">Constructor/a</span></div>
+      <div class="star-wrap"><span class="star" id="s4">★</span><span class="sname" id="n4">Espejo</span></div>
+      <div class="star-wrap"><span class="star" id="s5">★</span><span class="sname" id="n5">Maestro/a</span></div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-p" onclick="startW()">▶ Iniciar con AlGa</button>
+    <button class="btn-o" onclick="showTab('feedback')">Ver mi feedback →</button>
+  </div>
+  <p style="font-size:10px;color:#888;text-align:center;margin-top:6px">Medellín · Innovación Educativa · UPB</p>
+</div>
+</div>
+
+<div id="feedback" class="section">
+<div class="screen">
+  <div class="topbar">
+    <div style="display:flex;gap:6px"><span class="ibadge">Alvernia</span><span class="ibadge">Gabriel Restrepo Moreno</span></div>
+    <span style="font-size:12px;font-weight:500;color:#534AB7;background:#fff;padding:4px 14px;border-radius:20px;border:0.5px solid #AFA9EC">Sistema AlGa</span>
+  </div>
+  <div style="width:100%;z-index:2;margin-bottom:8px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <div style="width:32px;height:32px;border-radius:50%;background:#1D9E75;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0">✉</div>
+      <div><p style="font-size:14px;font-weight:500;color:#3C3489;margin:0">Mi feedback de hoy</p><p style="font-size:11px;color:#888;margin:0">Reto 1 próximamente</p></div>
+    </div>
+    <div class="card" style="margin-bottom:8px">
+      <p style="font-size:10px;font-weight:500;color:#0F6E56;text-transform:uppercase;letter-spacing:.06em;margin:0 0 7px">Retroalimentación del docente</p>
+      <p style="font-size:13px;color:#26215C;line-height:1.8;margin:0;font-style:italic">"Tu trabajo muestra esfuerzo y comprensión del tema. La estructura del texto está bien organizada. Sin embargo, algunos argumentos necesitan más evidencia para sustentarlos. Te sugiero revisar los párrafos 2 y 3 e incluir ejemplos concretos que apoyen tus ideas principales."</p>
+      <div style="display:flex;gap:6px;margin-top:9px;flex-wrap:wrap">
+        <span style="font-size:11px;padding:3px 10px;border-radius:20px;background:#E1F5EE;color:#0F6E56;border:0.5px solid #5DCAA5">Fortalezas</span>
+        <span style="font-size:11px;padding:3px 10px;border-radius:20px;background:#FAEEDA;color:#854F0B;border:0.5px solid #FAC775">Áreas de mejora</span>
+        <span style="font-size:11px;padding:3px 10px;border-radius:20px;background:#EEEDFE;color:#3C3489;border:0.5px solid #AFA9EC">Lengua castellana</span>
+      </div>
+    </div>
+    <div style="background:#EEEDFE;border-radius:10px;padding:9px 12px;border:0.5px solid #AFA9EC">
+      <p style="font-size:12px;color:#534AB7;margin:0;line-height:1.5"><strong style="font-weight:500">Instrucción:</strong> Lee este feedback dos veces completo antes de continuar. Cuando te sientas listo/a, presiona "Comenzar Reto 1".</p>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;justify-content:center;z-index:2;margin-top:auto">
+    <button class="btn-o" onclick="showTab('portal')">← Volver</button>
+    <a href="retos.html"><button class="btn-p" style="background:#1D9E75">Comenzar Reto 1 →</button></a>
+  </div>
+</div>
+</div>
+
+</div><!-- end wrap -->
+
+<script>
+const c=document.getElementById('algaC');
+const cx=c?c.getContext('2d'):null;
+let t=0,sp=false,af=null,wi=0,wt=null;
+
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();}
+
+function draw(mO,bl,dy,ex,ey){
+  if(!cx)return;
+  cx.clearRect(0,0,155,170);
+  const ax=78,ay=72+dy;
+  cx.fillStyle='#534AB7';cx.beginPath();cx.arc(ax,ay,60,0,Math.PI*2);cx.fill();
+  cx.fillStyle='#7F77DD';cx.beginPath();cx.arc(ax,ay-11,37,0,Math.PI*2);cx.fill();
+  const ey2=ay-15+ey,es=15;
+  [-es,es].forEach(ox=>{
+    cx.fillStyle='#fff';cx.beginPath();cx.ellipse(ax+ox+ex,ey2,6,bl?1:6,0,0,Math.PI*2);cx.fill();
+    if(!bl){cx.fillStyle='#26215C';cx.beginPath();cx.arc(ax+ox+ex+0.5,ey2+0.5,3,0,Math.PI*2);cx.fill();}
+  });
+  const my=ay-1+ey;
+  cx.strokeStyle='#fff';cx.lineWidth=2;cx.lineCap='round';
+  if(mO>0.2){cx.fillStyle='#26215C';cx.beginPath();cx.ellipse(ax,my+3,7+mO*4,3+mO*5,0,0,Math.PI);cx.fill();}
+  else{cx.beginPath();cx.moveTo(ax-9,my+1);cx.quadraticCurveTo(ax,my+7,ax+9,my+1);cx.stroke();}
+  cx.fillStyle='#2E8B6A';rr(cx,ax-37,ay+36,74,28,8);cx.fill();
+  cx.fillStyle='#fff';cx.font='bold 13px Arial';cx.textAlign='center';cx.textBaseline='middle';cx.fillText('ALGA',ax,ay+50);
+  cx.fillStyle='#3C3489';rr(cx,ax-27,ay+64,16,26,7);cx.fill();rr(cx,ax+11,ay+64,16,26,7);cx.fill();
+  cx.fillStyle='#4a42a8';rr(cx,ax-61,ay+8,12,22,5);cx.fill();rr(cx,ax+49,ay+8,12,22,5);cx.fill();
+}
+
+function loop(){
+  t+=0.065;
+  const bl=(Math.sin(t*3.3)>0.93);
+  const dy=Math.sin(t*1.1)*(sp?4:2);
+  const ex=Math.sin(t*0.7)*1.5;
+  const ey=Math.cos(t*0.9)*1;
+  let mO=0;if(sp)mO=Math.abs(Math.sin(t*8))*0.65+0.15;
+  draw(mO,bl,dy,ex,ey);
+  af=requestAnimationFrame(loop);
+}
+
+const msg=`¡Hola! Soy AlGa, tu compañero de viaje en el aprendizaje. Me llamo así porque nací de dos colegios increíbles de Medellín: el Alvernia y el Gabriel Restrepo Moreno.\n\nHoy vas a comenzar una experiencia diferente. Cada vez que tu profe te deje un feedback, yo apareceré para ayudarte a comprenderlo y convertirlo en una oportunidad de mejora.\n\n¿Estás listo/a para comenzar? ¡Primera misión activada!`;
+
+function startW(){
+  sp=true;wi=0;
+  const el=document.getElementById('wText');
+  el.innerHTML='';clearInterval(wt);
+  wt=setInterval(()=>{
+    if(wi<msg.length){el.innerHTML=msg.substring(0,wi+1).replace(/\n/g,'<br>');wi++;}
+    else{clearInterval(wt);sp=false;litStars();}
+  },22);
+}
+
+const sc=['#CECBF6','#9FE1CB','#FAC775','#F0997B','#FFD700'];
+function litStars(){
+  let i=1;
+  const st=setInterval(()=>{
+    if(i>5){clearInterval(st);return;}
+    const s=document.getElementById('s'+i),n=document.getElementById('n'+i);
+    if(s){s.style.color=sc[i-1];s.classList.add('lit');}
+    if(n)n.classList.add('lit');
+    i++;
+  },400);
+}
+
+function showTab(id){
+  document.getElementById('portal').style.display=id==='portal'?'block':'none';
+  const fb=document.getElementById('feedback');
+  if(fb){fb.classList.remove('on');if(id==='feedback')fb.classList.add('on');}
+  document.querySelectorAll('.ntab').forEach((b,i)=>{
+    b.classList.remove('on');
+    const ids=['portal','feedback'];
+    if(ids[i]===id)b.classList.add('on');
+  });
+}
+
+if(c){loop();draw(0,false,0,0,0);}
+</script>
+</body>
+</html>
