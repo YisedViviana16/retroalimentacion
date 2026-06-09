@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reto 2 - Conecta los puntos</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#E1F5EE;
+    padding:20px;
+    margin:0;
+}
+
+h1{
+    text-align:center;
+    color:#085041;
+}
+
+.instruccion{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.pregunta{
+    background:white;
+    max-width:900px;
+    margin:15px auto;
+    padding:20px;
+    border-radius:12px;
+    border:2px solid #5DCAA5;
+}
+
+.pregunta h3{
+    color:#085041;
+}
+
+.opcion{
+    display:block;
+    margin:10px 0;
+    padding:10px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button{
+    display:block;
+    margin:25px auto;
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    background:#1D9E75;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0F6E56;
+}
+
+.correcta{
+    background:#c8f0dd;
+    border:2px solid green;
+}
+
+.incorrecta{
+    background:#ffd7d7;
+    border:2px solid red;
+}
+
+#resultado{
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+    color:#085041;
+    margin-top:20px;
+}
+
+#volver{
+    display:none;
+    text-align:center;
+    margin-top:20px;
+}
+
+.volverBtn{
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    background:#1D9E75;
+    color:white;
+    font-size:16px;
+    text-decoration:none;
+}
+
+</style>
+</head>
+<body>
+
+<h1>🔬 Reto 2: Conecta los puntos</h1>
+
+<div class="instruccion">
+Relaciona cada comentario de retroalimentación con la causa que probablemente lo originó.
+</div>
+
+<form id="quiz">
+
+<div class="pregunta">
+<h3>1. "La información necesita más evidencia."</h3>
+
+<label class="opcion">
+<input type="radio" name="p1" value="0">
+ Utilicé demasiadas imágenes
+</label>
+
+<label class="opcion">
+<input type="radio" name="p1" value="1">
+ No incluí ejemplos ni datos que respaldaran mis ideas
+</label>
+
+<label class="opcion">
+<input type="radio" name="p1" value="0">
+ Cambié varias veces los colores
+</label>
+</div>
+
+
+<div class="pregunta">
+<h3>2. "La navegación del sitio es confusa."</h3>
+
+<label class="opcion">
+<input type="radio" name="p2" value="1">
+ Los enlaces y secciones no estaban organizados claramente
+</label>
+
+<label class="opcion">
+<input type="radio" name="p2" value="0">
+ Las imágenes eran pequeñas
+</label>
+
+<label class="opcion">
+<input type="radio" name="p2" value="0">
+ El título estaba centrado
+</label>
+</div>
+
+
+<div class="pregunta">
+<h3>3. "El diseño presenta inconsistencias visuales."</h3>
+
+<label class="opcion">
+<input type="radio" name="p3" value="0">
+ No publiqué el sitio
+</label>
+
+<label class="opcion">
+<input type="radio" name="p3" value="1">
+ Utilicé diferentes fuentes y colores sin criterio común
+</label>
+
+<label class="opcion">
+<input type="radio" name="p3" value="0">
+ Agregué una página extra
+</label>
+</div>
+
+
+<div class="pregunta">
+<h3>4. "La información parece copiada."</h3>
+
+<label class="opcion">
+<input type="radio" name="p4" value="0">
+ Agregué muchas fotografías
+</label>
+
+<label class="opcion">
+<input type="radio" name="p4" value="1">
+ Copié fragmentos textuales sin sintetizarlos con mis palabras
+</label>
+
+<label class="opcion">
+<input type="radio" name="p4" value="0">
+ Usé Canva
+</label>
+</div>
+
+
+<div class="pregunta">
+<h3>5. "Las fuentes utilizadas no son confiables."</h3>
+
+<label class="opcion">
+<input type="radio" name="p5" value="1">
+ No verifiqué el origen ni la credibilidad de la información
+</label>
+
+<label class="opcion">
+<input type="radio" name="p5" value="0">
+ Utilicé imágenes libres
+</label>
+
+<label class="opcion">
+<input type="radio" name="p5" value="0">
+ Revisé la vista móvil
+</label>
+</div>
+
+<button type="button" onclick="calificar()">
+Ver resultado
+</button>
+
+</form>
+
+<div id="resultado"></div>
+
+<div id="volver">
+<a href="retos.html" class="volverBtn">
+🚀 Volver al Sistema AlGa
+</a>
+</div>
+
+<script>
+
+function calificar(){
+
+let total=5;
+let puntos=0;
+
+for(let i=1;i<=5;i++){
+
+let seleccion=
+document.querySelector(`input[name="p${i}"]:checked`);
+
+if(seleccion){
+
+puntos+=parseInt(seleccion.value);
+
+}
+}
+
+let porcentaje=
+Math.round((puntos/total)*100);
+
+let mensaje="";
+
+if(porcentaje>=80){
+
+mensaje=
+"🏆 Analista del Saber desbloqueado<br>Excelente trabajo conectando causas y consecuencias.";
+
+}else if(porcentaje>=60){
+
+mensaje=
+"⭐ Vas por buen camino. Sigue practicando la interpretación del feedback.";
+
+}else{
+
+mensaje=
+"🔄 Intenta nuevamente. La clave está en descubrir por qué apareció cada comentario.";
+}
+
+document.getElementById("resultado").innerHTML=
+`Obtuviste ${puntos} de ${total} respuestas correctas (${porcentaje}%)<br><br>${mensaje}`;
+
+document.getElementById("volver").style.display="block";
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+}
+
+</script>
+
+</body>
+</html>
