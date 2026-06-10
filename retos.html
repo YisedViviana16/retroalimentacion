@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sistema ALGA — Retos de retroalimentación</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f4f3ff;min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:20px}
+.wrap{width:100%;max-width:680px}
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;justify-content:center}
+.ntab{padding:6px 12px;border-radius:8px;border:0.5px solid #AFA9EC;font-size:12px;cursor:pointer;background:#fff;color:#534AB7;font-weight:500;transition:all .15s}
+.ntab.on{color:#fff;border-color:transparent}
+.screen{border-radius:16px;padding:1.2rem;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.topbar{display:flex;justify-content:space-between;align-items:center}
+.ibadge{font-size:10px;padding:3px 9px;border-radius:20px;background:#fff;color:#3C3489;border:0.5px solid #AFA9EC;font-weight:500}
+.prog{display:flex;gap:4px;align-items:center}
+.pstar{font-size:16px;color:#CCC;transition:color .3s}
+.card{background:#fff;border-radius:12px;border:0.5px solid #AFA9EC;padding:.9rem 1rem}
+.ctitle{font-size:14px;font-weight:500;margin:0 0 5px}
+.cbody{font-size:12.5px;line-height:1.6;margin:0}
+.label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin:0 0 6px}
+textarea{width:100%;border:0.5px solid #AFA9EC;border-radius:8px;padding:8px;font-size:12.5px;resize:vertical;min-height:60px;font-family:inherit;color:#26215C;background:#fff;outline:none}
+textarea:focus{border-color:#534AB7}
+.btn{padding:8px 20px;border-radius:8px;border:none;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}
+.btn-p{background:#534AB7;color:#fff}
+.btn-p:hover{background:#3C3489}
+.btn-o{background:transparent;color:#534AB7;border:1.5px solid #534AB7}
+.btn-o:hover{background:#EEEDFE}
+.unlock{border-radius:14px;padding:1.2rem;text-align:center;display:none}
+.unlock.show{display:block}
+.uicon{font-size:44px;margin-bottom:8px}
+.uname{font-size:20px;font-weight:500;margin:0 0 4px}
+.udesc{font-size:12px;margin:0 0 12px}
+.zone{border-radius:8px;padding:8px 10px;margin-bottom:6px}
+.ztitle{font-size:11px;font-weight:500;margin:0 0 4px}
+.zinput{width:100%;border:none;background:transparent;font-size:12.5px;font-family:inherit;outline:none;color:inherit;min-height:40px;resize:none}
+.proto-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+.proto-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.proto-text{flex:1}
+.proto-label{font-size:11px;font-weight:500;margin:0 0 3px}
+.cert{border-radius:14px;padding:1.5rem;text-align:center}
+.cert-title{font-size:22px;font-weight:500;margin:0 0 4px}
+.cert-sub{font-size:13px;margin:0 0 12px}
+.cert-name{font-size:28px;font-weight:500;margin:8px 0}
+.badge-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.cbadge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
+.back-link{display:inline-block;margin-bottom:10px;font-size:12px;color:#534AB7;text-decoration:none;padding:5px 12px;border:0.5px solid #AFA9EC;border-radius:8px;background:#fff}
+.back-link:hover{background:#EEEDFE}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a href="index.html" class="back-link">← Volver al Portal</a>
+
+<div class="nav">
+  <button class="ntab on" style="background:#534AB7" onclick="go(0)">Reto 1</button>
+  <button class="ntab" onclick="go(1)">Reto 2</button>
+  <button class="ntab" onclick="go(2)">Reto 3</button>
+  <button class="ntab" onclick="go(3)">Reto 4</button>
+  <button class="ntab" onclick="go(4)">Reto 5</button>
+  <button class="ntab" onclick="go(5)" style="background:#EF9F27;color:#fff;border-color:transparent">Certificado</button>
+</div>
+
+<!-- RETO 1 -->
+<div id="r0" class="screen" style="background:#EEEDFE">
+  <div class="topbar">
+    <div style="display:flex;gap:6px"><span class="ibadge">Alvernia</span><span class="ibadge">Gabriel Restrepo</span></div>
+    <div class="prog"><span class="pstar" id="p0s1" style="color:#CECBF6">★</span><span class="pstar" id="p0s2">★</span><span class="pstar" id="p0s3">★</span><span class="pstar" id="p0s4">★</span><span class="pstar" id="p0s5">★</span></div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div style="width:38px;height:38px;border-radius:50%;background:#534AB7;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:#fff">1</div>
+    <div><p style="font-size:15px;font-weight:500;color:#3C3489;margin:0">Descifra tu mapa</p><p style="font-size:12px;color:#534AB7;margin:0">Comprensión literal del feedback</p></div>
+    <span style="margin-left:auto;font-size:11px;padding:3px 9px;border-radius:20px;background:#EEEDFE;color:#3C3489;border:0.5px solid #AFA9EC">Reto 1 de 5</span>
+  </div>
+  <div class="card">
+    <p class="ctitle" style="color:#3C3489">¿Qué hace ALGA en este reto?</p>
+    <p class="cbody" style="color:#534AB7">Lee tu feedback completo y clasifica cada comentario en tres zonas. Subraya con verde lo que hiciste bien, con naranja lo que puedes mejorar, y guarda las palabras que no entendiste.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div class="zone" style="background:#E1F5EE;border:0.5px solid #5DCAA5">
+      <p class="ztitle" style="color:#0F6E56">Lo que hice bien (marca de verde)</p>
+      <textarea class="zinput" style="color:#085041" placeholder="Escribe aquí lo que tu profe reconoció como logrado..." rows="2"></textarea>
+    </div>
+    <div class="zone" style="background:#FAEEDA;border:0.5px solid #FAC775">
+      <p class="ztitle" style="color:#854F0B">Lo que puedo mejorar (marca de naranja)</p>
+      <textarea class="zinput" style="color:#633806" placeholder="Escribe aquí lo que tu profe sugiere mejorar..." rows="2"></textarea>
+    </div>
+    <div class="zone" style="background:#EEEDFE;border:0.5px solid #AFA9EC">
+      <p class="ztitle" style="color:#3C3489">Palabras que no entendí</p>
+      <textarea class="zinput" style="color:#26215C" placeholder="Palabras o frases que necesito preguntar o buscar..." rows="1"></textarea>
+    </div>
+  </div>
+  <!-- Juego interactivo Reto 1 -->
+
+<div class="card" style="margin-top:10px;">
+    <p class="ctitle" style="color:#3C3489">
+        🎮 Juego interactivo
+    </p>
+
+    <p class="cbody" style="color:#534AB7">
+        Practica la clasificación de comentarios de retroalimentación antes de completar el reto.
+    </p>
+
+    <div style="text-align:center;margin-top:12px;">
+        <a href="reto1.html" target="_blank">
+            <button class="btn btn-p">
+                🚀 Superar desafío de clasificación
+            </button>
+        </a>
+    </div>
+</div>
+  <div id="u0" class="unlock" style="background:#CECBF6">
+    <div class="uicon">🌱</div>
+    <p class="uname" style="color:#26215C">¡Explorador/a del Feedback!</p>
+    <p class="udesc" style="color:#3C3489">Aprendiste a leer el mapa del feedback. Primera estrella desbloqueada.</p>
+    <button class="btn btn-p" onclick="go(1)">Ir al Reto 2 →</button>
+  </div>
+  <div style="display:flex;gap:8px;justify-content:flex-end" id="btn0">
+    <button class="btn btn-o" onclick="go(5)">Ver certificado</button>
+    <button class="btn btn-p" onclick="unlock(0)">Completar Reto 1 ✓</button>
+  </div>
+</div>
+
+<!-- RETO 2 -->
+<div id="r1" class="screen" style="background:#E1F5EE;display:none">
+  <div class="topbar">
+    <div style="display:flex;gap:6px"><span class="ibadge">Alvernia</span><span class="ibadge">Gabriel Restrepo</span></div>
+    <div class="prog"><span class="pstar" style="color:#CECBF6">★</span><span class="pstar" id="p1s2" style="color:#9FE1CB">★</span><span class="pstar" id="p1s3">★</span><span class="pstar" id="p1s4">★</span><span class="pstar" id="p1s5">★</span></div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div style="width:38px;height:38px;border-radius:50%;background:#1D9E75;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:#fff">2</div>
+    <div><p style="font-size:15px;font-weight:500;color:#085041;margin:0">Conecta los puntos</p><p style="font-size:12px;color:#0F6E56;margin:0">Comprensión inferencial</p></div>
+    <span style="margin-left:auto;font-size:11px;padding:3px 9px;border-radius:20px;background:#E1F5EE;color:#085041;border:0.5px solid #5DCAA5">Reto 2 de 5</span>
+  </div>
+  <div class="card" style="border-color:#5DCAA5">
+    <p class="ctitle" style="color:#085041">¿Qué hace ALGA en este reto?</p>
+    <p class="cbody" style="color:#0F6E56">Por cada comentario del feedback, escribe una frase que empiece con "porque". Conecta lo que dijo tu profe con la causa real en tu trabajo.</p>
+  </div>
+  <div class="card" style="border-color:#5DCAA5;background:#E1F5EE">
+    <p class="ctitle" style="color:#085041">Ejemplo de ALGA</p>
+    <p class="cbody" style="color:#0F6E56"><span style="background:#fff;border-radius:6px;padding:2px 8px;font-size:12px">Feedback:</span> "Los argumentos necesitan más evidencia"<br><span style="color:#1D9E75;font-weight:500">→ Porque</span> no incluí ejemplos concretos que apoyaran mis ideas principales.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div class="zone" style="background:#fff;border:0.5px solid #5DCAA5">
+      <p class="ztitle" style="color:#085041">Frase con "porque" N.° 1</p>
+      <textarea class="zinput" style="color:#085041" placeholder="El feedback dice... porque yo..." rows="2"></textarea>
+    </div>
+    <div class="zone" style="background:#fff;border:0.5px solid #5DCAA5">
+      <p class="ztitle" style="color:#085041">Frase con "porque" N.° 2</p>
+      <textarea class="zinput" style="color:#085041" placeholder="El feedback dice... porque yo..." rows="2"></textarea>
+    </div>
+    <div class="zone" style="background:#fff;border:0.5px solid #9FE1CB">
+      <p class="ztitle" style="color:#0F6E56">Frase adicional (opcional)</p>
+      <textarea class="zinput" style="color:#0F6E56" placeholder="Si quieres agregar más conexiones..." rows="1"></textarea>
+    </div>
+  </div>
+  <a href="reto2.html" target="_blank">
+   <button class="btn" style="background:#1D9E75;color:white">
+      🎮 Jugar desafío interactivo
+   </button>
+</a>
+  <div id="u1" class="unlock" style="background:#9FE1CB;display:none">
+    <div class="uicon">🔬</div>
+    <p class="uname" style="color:#04342C">¡Analista de Evidencias!</p>
+    <p class="udesc" style="color:#085041">Conectaste el feedback con sus causas. Segunda estrella activa.</p>
+    <button class="btn" style="background:#0F6E56;color:#fff" onclick="go(2)">Ir al Reto 3 →</button>
+  </div>
+  <div style="display:flex;gap:8px;justify-content:flex-end" id="btn1">
+    <button class="btn btn-o" style="color:#0F6E56;border-color:#0F6E56" onclick="go(0)">← Reto 1</button>
+    <button class="btn" style="background:#1D9E75;color:#fff" onclick="unlock(1)">Completar Reto 2 ✓</button>
+  </div>
+</div>
+
+<!-- RETO 3 -->
+<div id="r2" class="screen" style="background:#FAEEDA;display:none">
+  <div class="topbar">
+    <div style="display:flex;gap:6px"><span class="ibadge">Alvernia</span><span class="ibadge">Gabriel Restrepo</span></div>
+    <div class="prog"><span class="pstar" style="color:#CECBF6">★</span><span class="pstar" style="color:#9FE1CB">★</span><span class="pstar" id="p2s3" style="color:#FAC775">★</span><span class="pstar" id="p2s4">★</span><span class="pstar" id="p2s5">★</span></div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div style="width:38px;height:38px;border-radius:50%;background:#EF9F27;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:#fff">3</div>
+    <div><p style="font-size:15px;font-weight:500;color:#412402;margin:0">Misión mejora</p><p style="font-size:12px;color:#854F0B;margin:0">Acción correctiva concreta</p></div>
+    <span style="margin-left:auto;font-size:11px;padding:3px 9px;border-radius:20px;background:#FAEEDA;color:#854F0B;border:0.5px solid #FAC775">Reto 3 de 5</span>
+  </div>
+  <div class="card" style="border-color:#FAC775">
+    <p class="ctitle" style="color:#412402">Plan de mejora ALGA — 3 pasos</p>
+    <p class="cbody" style="color:#854F0B">Escribe tres acciones concretas y pequeñas que puedas hacer TÚ SOLO para mejorar. Luego marca cuál ya aplicaste hoy mismo.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div class="zone" style="background:#fff;border:0.5px solid #FAC775">
+      <p class="ztitle" style="color:#854F0B">Paso 1 — acción concreta</p>
+      <textarea class="zinput" style="color:#633806" placeholder="Voy a..." rows="2"></textarea>
+    </div>
+    <div class="zone" style="background:#fff;border:0.5px solid #FAC775">
+      <p class="ztitle" style="color:#854F0B">Paso 2 — acción concreta</p>
+      <textarea class="zinput" style="color:#633806" placeholder="También voy a..." rows="2"></textarea>
+    </div>
+    <div class="zone" style="background:#fff;border:0.5px solid #FAC775">
+      <p class="ztitle" style="color:#854F0B">Paso 3 — acción concreta</p>
+      <textarea class="zinput" style="color:#633806" placeholder="Por último voy a..." rows="2"></textarea>
+    </div>
+    <div class="zone" style="background:#EF9F27;border:0.5px solid #BA7517">
+      <p class="ztitle" style="color:#fff">Ya apliqué este paso hoy mismo</p>
+      <textarea class="zinput" style="color:#fff" placeholder="Describe brevemente lo que ya hiciste ahorita..." rows="1"></textarea>
+    </div>
+  </div>
+  <div id="u2" class="unlock" style="background:#FAC775;display:none">
+    <div class="uicon">⚙️</div>
+    <p class="uname" style="color:#412402">¡Constructor/a de Mejoras!</p>
+    <p class="udesc" style="color:#633806">Convertiste el feedback en acción real. Tercera estrella encendida.</p>
+    <button class="btn" style="background:#854F0B;color:#fff" onclick="go(3)">Ir al Reto 4 →</button>
+  </div>
+  <div style="display:flex;gap:8px;justify-content:flex-end" id="btn2">
+    <button class="btn btn-o" style="color:#854F0B;border-color:#854F0B" onclick="go(1)">← Reto 2</button>
+    <button class="btn" style="background:#EF9F27;color:#fff" onclick="unlock(2)">Completar Reto 3 ✓</button>
+  </div>
+</div>
+
+<!-- RETO 4 -->
+<div id="r3" class="screen" style="background:#FAECE7;display:none">
+  <div class="topbar">
+    <div style="display:flex;gap:6px"><span class="ibadge">Alvernia</span><span class="ibadge">Gabriel Restrepo</span></div>
+    <div class="prog"><span class="pstar" style="color:#CECBF6">★</span><span class="pstar" style="color:#9FE1CB">★</span><span class="pstar" style="color:#FAC775">★</span><span class="pstar" id="p3s4" style="color:#F0997B">★</span><span class="pstar" id="p3s5">★</span></div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div style="width:38px;height:38px;border-radius:50%;background:#D85A30;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:#fff">4</div>
+    <div><p style="font-size:15px;font-weight:500;color:#4A1B0C;margin:0">Espejo creativo</p><p style="font-size:12px;color:#993C1D;margin:0">Metacognición y autoevaluación</p></div>
+    <span style="margin-left:auto;font-size:11px;padding:3px 9px;border-radius:20px;background:#FAECE7;color:#712B13;border:0.5px solid #F0997B">Reto 4 de 5</span>
+  </div>
+  <div class="card" style="border-color:#F0997B">
+    <p class="ctitle" style="color:#4A1B0C">Tres preguntas sobre ti mismo/a</p>
+    <p class="cbody" style="color:#993C1D">Este reto no es sobre tu trabajo. Es sobre cómo aprendes. Responde con honestidad — no hay respuestas incorrectas.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div class="zone" style="background:#fff;border:0.5px solid #F0997B">
+      <p class="ztitle" style="color:#712B13">¿Qué fue lo más difícil de leer en el feedback?</p>
+      <textarea class="zinput" style="color:#4A1B0C" placeholder="Lo que más me costó fue..." rows="2"></textarea>
+    </div>
+    <div class="zone" style="background:#fff;border:0.5px solid #F0997B">
+      <p class="ztitle" style="color:#712B13">¿Qué aprendí de mí mismo/a en este proceso?</p>
+      <textarea class="zinput" style="color:#4A1B0C" placeholder="Descubrí que yo..." rows="2"></textarea>
+    </div>
+    <div class="zone" style="background:#fff;border:0.5px solid #F0997B">
+      <p class="ztitle" style="color:#712B13">¿Cómo me sentí al convertir el feedback en acción?</p>
+      <textarea class="zinput" style="color:#4A1B0C" placeholder="Me sentí..." rows="2"></textarea>
+    </div>
+    <div class="zone" style="background:#D85A30;border:0.5px solid #993C1D">
+      <p class="ztitle" style="color:#fff">Reto extra: graba un video de 60 seg respondiendo estas preguntas</p>
+      <p style="font-size:11px;color:#FAECE7;margin:0">Usa la cámara de tu celular o computador. Guárdalo en tu Drive o cuaderno digital.</p>
+    </div>
+  </div>
+  <div id="u3" class="unlock" style="background:#F5C4B3;display:none">
+    <div class="uicon">🪞</div>
+    <p class="uname" style="color:#4A1B0C">¡Reflexionista ALGA!</p>
+    <p class="udesc" style="color:#712B13">Reflexionaste sobre tu propio aprendizaje. Cuarta estrella activa.</p>
+    <button class="btn" style="background:#993C1D;color:#fff" onclick="go(4)">Ir al Reto 5 →</button>
+  </div>
+  <div style="display:flex;gap:8px;justify-content:flex-end" id="btn3">
+    <button class="btn btn-o" style="color:#993C1D;border-color:#993C1D" onclick="go(2)">← Reto 3</button>
+    <button class="btn" style="background:#D85A30;color:#fff" onclick="unlock(3)">Completar Reto 4 ✓</button>
+  </div>
+</div>
+
+<!-- RETO 5 -->
+<div id="r4" class="screen" style="background:#EEEDFE;display:none">
+  <div class="topbar">
+    <div style="display:flex;gap:6px"><span class="ibadge">Alvernia</span><span class="ibadge">Gabriel Restrepo</span></div>
+    <div class="prog"><span class="pstar" style="color:#CECBF6">★</span><span class="pstar" style="color:#9FE1CB">★</span><span class="pstar" style="color:#FAC775">★</span><span class="pstar" style="color:#F0997B">★</span><span class="pstar" id="p4s5">★</span></div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div style="width:38px;height:38px;border-radius:50%;background:#534AB7;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;color:#fff">5</div>
+    <div><p style="font-size:15px;font-weight:500;color:#26215C;margin:0">Maestro/a ALGA</p><p style="font-size:12px;color:#534AB7;margin:0">Transferencia entre pares — nivel máximo</p></div>
+    <span style="margin-left:auto;font-size:11px;padding:3px 9px;border-radius:20px;background:#EEEDFE;color:#3C3489;border:0.5px solid #AFA9EC">Reto 5 de 5</span>
+  </div>
+  <div class="card">
+    <p class="ctitle" style="color:#26215C">Protocolo ALGA — da feedback a un par</p>
+    <p class="cbody" style="color:#534AB7">Elige el trabajo de un compañero/a (con su permiso) y dale feedback usando el protocolo: Celebra → Propone → Pregunta.</p>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:6px">
+    <div class="proto-row">
+      <div class="proto-icon" style="background:#E1F5EE;color:#0F6E56;font-weight:500;font-size:11px">CEL</div>
+      <div class="proto-text zone" style="background:#E1F5EE;border:0.5px solid #5DCAA5;flex:1;border-radius:8px;padding:8px 10px">
+        <p class="proto-label" style="color:#085041">Celebra — ¿qué hizo bien tu compañero/a?</p>
+        <textarea class="zinput" style="color:#085041" placeholder="Reconozco que hiciste muy bien..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="proto-row">
+      <div class="proto-icon" style="background:#FAEEDA;color:#854F0B;font-weight:500;font-size:11px">PRO</div>
+      <div class="proto-text zone" style="background:#FAEEDA;border:0.5px solid #FAC775;flex:1;border-radius:8px;padding:8px 10px">
+        <p class="proto-label" style="color:#633806">Propone — ¿qué podría mejorar y cómo?</p>
+        <textarea class="zinput" style="color:#633806" placeholder="Te sugiero que puedas mejorar... haciendo..." rows="2"></textarea>
+      </div>
+    </div>
+    <div class="proto-row">
+      <div class="proto-icon" style="background:#EEEDFE;color:#3C3489;font-weight:500;font-size:11px">PRG</div>
+      <div class="proto-text zone" style="background:#EEEDFE;border:0.5px solid #AFA9EC;flex:1;border-radius:8px;padding:8px 10px">
+        <p class="proto-label" style="color:#26215C">Pregunta — una pregunta que lo invite a pensar más</p>
+        <textarea class="zinput" style="color:#26215C" placeholder="¿Qué pasaría si...? / ¿Qué quisiste decir cuando...?" rows="2"></textarea>
+      </div>
+    </div>
+  </div>
+  <div id="u4" class="unlock" style="background:#CECBF6;display:none">
+    <div class="uicon">🌟</div>
+    <p class="uname" style="color:#26215C">¡Maestro/a ALGA!</p>
+    <p class="udesc" style="color:#3C3489">Cerraste el ciclo. Diste feedback con sabiduría. Las 5 estrellas son tuyas.</p>
+    <button class="btn btn-p" onclick="go(5)">Ver mi certificado →</button>
+  </div>
+  <div style="display:flex;gap:8px;justify-content:flex-end" id="btn4">
+    <button class="btn btn-o" onclick="go(3)">← Reto 4</button>
+    <button class="btn btn-p" onclick="unlock(4)">Completar Reto 5 ✓</button>
+  </div>
+</div>
+
+<!-- CERTIFICADO -->
+<div id="r5" class="screen" style="display:none;padding:0">
+  <div class="cert" style="background:#EEEDFE">
+    <p style="font-size:11px;font-weight:500;color:#534AB7;text-transform:uppercase;letter-spacing:.08em;margin:0 0 4px">Sistema ALGA · Certificado de logro</p>
+    <p style="font-size:10px;color:#888;margin:0 0 12px">Alvernia · Gabriel Restrepo Moreno · Medellín</p>
+    <div style="font-size:40px;margin-bottom:8px">🌟</div>
+    <p class="cert-title" style="color:#26215C">Maestro/a ALGA</p>
+    <p class="cert-sub" style="color:#534AB7">Este certificado reconoce que</p>
+    <input type="text" id="certName" placeholder="Escribe tu nombre aquí" style="text-align:center;font-size:20px;font-weight:500;border:none;border-bottom:1.5px solid #534AB7;background:transparent;color:#26215C;width:100%;outline:none;padding:4px 0;margin:4px 0 12px">
+    <p style="font-size:13px;color:#534AB7;margin:0 0 12px;line-height:1.6">completó los 5 retos del Sistema ALGA, desarrollando la habilidad de leer, interpretar y actuar sobre el feedback, y demostrando su capacidad de dar retroalimentación constructiva a sus pares.</p>
+    <div class="badge-row">
+      <span class="cbadge" style="background:#CECBF6;color:#26215C">🌱 Explorador/a del eco</span>
+      <span class="cbadge" style="background:#9FE1CB;color:#04342C">🔬 Analista del saber</span>
+      <span class="cbadge" style="background:#FAC775;color:#412402">⚙️ Constructor/a ALGA</span>
+      <span class="cbadge" style="background:#F5C4B3;color:#4A1B0C">🪞 Espejo del pensamiento</span>
+      <span class="cbadge" style="background:#534AB7;color:#fff">🌟 Maestro/a ALGA</span>
+    </div>
+    <div style="display:flex;gap:6px;justify-content:center;margin-top:12px;flex-wrap:wrap">
+      <div style="text-align:center;padding:8px 16px;border:0.5px solid #AFA9EC;border-radius:8px;background:#fff">
+        <p style="font-size:10px;color:#888;margin:0">Fecha</p>
+        <p style="font-size:13px;font-weight:500;color:#26215C;margin:0" id="certDate"></p>
+      </div>
+      <div style="text-align:center;padding:8px 16px;border:0.5px solid #AFA9EC;border-radius:8px;background:#fff">
+        <p style="font-size:10px;color:#888;margin:0">Retos completados</p>
+        <p style="font-size:13px;font-weight:500;color:#26215C;margin:0">5 de 5</p>
+      </div>
+      <div style="text-align:center;padding:8px 16px;border:0.5px solid #AFA9EC;border-radius:8px;background:#fff">
+        <p style="font-size:10px;color:#888;margin:0">Nivel</p>
+        <p style="font-size:13px;font-weight:500;color:#534AB7;margin:0">Maestro/a ALGA</p>
+      </div>
+    </div>
+    <div style="margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-p" onclick="go(0)">← Volver al inicio</button>
+      <button class="btn btn-o" onclick="window.print()">🖨️ Imprimir certificado</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- end wrap -->
+
+<script>
+const colors=['#CECBF6','#9FE1CB','#FAC775','#F0997B','#FFD700'];
+const navColors=['#534AB7','#1D9E75','#EF9F27','#D85A30','#534AB7','#EF9F27'];
+
+function go(n){
+  for(let i=0;i<6;i++){
+    const el=document.getElementById('r'+i);
+    if(el)el.style.display=i===n?'flex':'none';
+  }
+  document.querySelectorAll('.ntab').forEach((t,i)=>{
+    t.classList.remove('on');
+    t.style.background='';t.style.color='';t.style.borderColor='';
+  });
+  const tabs=document.querySelectorAll('.ntab');
+  if(tabs[n]){
+    tabs[n].classList.add('on');
+    tabs[n].style.background=navColors[n];
+    tabs[n].style.color='#fff';
+    tabs[n].style.borderColor='transparent';
+  }
+  if(n===5){
+    const d=new Date();
+    const el=document.getElementById('certDate');
+    if(el)el.textContent=d.toLocaleDateString('es-CO',{day:'2-digit',month:'long',year:'numeric'});
+  }
+  window.scrollTo(0,0);
+}
+
+function unlock(n){
+  const u=document.getElementById('u'+n);
+  const b=document.getElementById('btn'+n);
+  if(u){u.style.display='block';u.classList.add('show');}
+  if(b)b.style.display='none';
+  const litId=['p0s1','p1s2','p2s3','p3s4','p4s5'];
+  const el=document.getElementById(litId[n]);
+  if(el){el.style.color=colors[n];el.style.transform='scale(1.3)';setTimeout(()=>el.style.transform='',400);}
+}
+
+go(0);
+</script>
+</body>
+</html>
